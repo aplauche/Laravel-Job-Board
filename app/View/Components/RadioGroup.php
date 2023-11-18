@@ -18,6 +18,14 @@ class RadioGroup extends Component
         //
     }
 
+    public function optionsWithLabels(): array
+    {
+        // check if array is basic or associative and transform basic to associative if not
+        return isset($this->options[0]) ?
+            array_combine($this->options, $this->options) :
+            $this->options;
+    }
+
     /**
      * Get the view / contents that represent the component.
      */

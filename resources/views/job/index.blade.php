@@ -13,7 +13,7 @@
           <div class="mb-1 text-sm font-semibold">Search</div>
           <x-text-input name="search" value="{{ request('search') }}" placeholder="Search for any text" />
         </div>
-        
+
         <div>
           <div class="mb-1 text-sm font-semibold">Salary</div>
           <div class="flex space-x-2">
@@ -24,11 +24,13 @@
 
         <div>
           <div class="mb-1 text-sm font-semibold">Experience</div>
-          <x-radio-group name="experience" :options="\App\Models\Job::$experience"/>
+          {{-- Fancy way to uppercase labels --}}
+          <x-radio-group name="experience" :options="array_combine( array_map('ucfirst' ,\App\Models\Job::$experience) ,\App\Models\Job::$experience )"/>
         </div>
 
         <div>
           <div class="mb-1 text-sm font-semibold">Category</div>
+          {{-- Basic way to push labels instead --}}
           <x-radio-group name="category" :options="\App\Models\Job::$category"/>
         </div>
       </div>
