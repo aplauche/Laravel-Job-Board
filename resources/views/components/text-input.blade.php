@@ -1,17 +1,20 @@
 <div class="relative">
-    @if ($formId)
-        <button 
-            type="button" 
-            onclick="document.getElementById('{{ $name }}').value = ''; document.getElementById('{{ $formId }}').submit()" 
-            class="absolute right-2 top-1/2 -translate-y-1/2"
-        >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>          
-        </button> 
+    @if ($parentForm)
+    <button 
+        type="button" 
+        @click="$refs['input-{{$name}}'].value=''; $refs['{{$parentForm}}'].submit();"
+        class="absolute right-2 top-1/2 -translate-y-1/2"
+    >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>          
+    </button> 
     @endif
 
+
+
     <input 
+    x-ref="input-{{$name}}"
     id="{{ $name }}" 
     type="text" 
     placeholder="{{ $placeholder }}" 

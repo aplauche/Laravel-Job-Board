@@ -6,12 +6,12 @@
     :links="['Jobs' => '#']"
   />
 
-  <x-card class="mb-4 text-sm">
-    <form id="filtering-form" action="{{ route('jobs.index') }}" method="GET">
+  <x-card class="mb-4 text-sm" x-data="">
+    <form x-ref="filters" id="filtering-form" action="{{ route('jobs.index') }}" method="GET">
       <div class="grid mb-4 grid-cols-2 gap-4">
         <div>
           <div class="mb-1 text-sm font-semibold">Search</div>
-          <x-text-input form-id="filtering-form" name="search" value="{{ request('search') }}" placeholder="Search for any text" />
+          <x-text-input parentForm="filters" name="search" value="{{ request('search') }}" placeholder="Search for any text" />
         </div>
 
         <div>
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <button class="w-full py-2 bg-slate-500">Apply</button>
+      <button class="w-full button">Apply</button>
     </form>
   </x-card>
 
