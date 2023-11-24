@@ -39,7 +39,11 @@ class Job extends Model
             // check title and description for search term
             $query->where(function ($query) use ($search) {
                 $query->where("title", "like", "%" . $search . "%")
-                    ->orWhere("description", "like", "%" . $search . "%");
+                    ->orWhere("description", "like", "%" . $search . "%")
+                    // Search within a nested relationship with whereHas
+                    ->orWhereHas('employer', function ($query) use ($search) {
+                        $query->where("company_name", "like", "%" . $search . "%");
+                    });
             });
             // AND check salary range
         })->when($filters['min_salary'] ?? null, function ($query, $minSalary) {
