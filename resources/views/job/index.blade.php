@@ -43,9 +43,9 @@
 
     <x-job-card :job="$job">
       <div>
-        <x-button :href="route( 'jobs.show', $job)">
+        <x-button-link :href="route( 'jobs.show', $job)">
           Details
-        </x-button>
+        </x-button-link>
       </div>
     </x-job-card>
 

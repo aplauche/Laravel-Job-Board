@@ -16,7 +16,7 @@
     <input 
     x-ref="input-{{$name}}"
     id="{{ $name }}" 
-    type="text" 
+    type={{$type}} 
     placeholder="{{ $placeholder }}" 
     name="{{ $name }}" 
     value="{{ $value }}"
