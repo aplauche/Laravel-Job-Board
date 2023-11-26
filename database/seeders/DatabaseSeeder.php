@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Employer;
 use App\Models\Job;
+use App\Models\JobApplication;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $users = \App\Models\User::all()->shuffle();
 
+        // Create Employers
         for ($i = 0; $i < 20; $i++) {
             Employer::factory()->create([
                 // grab user from beg. and remove from list
@@ -31,12 +33,26 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
+        // Create Jobs
         $employers = Employer::all();
 
         for ($i = 0; $i < 100; $i++) {
             Job::factory()->create([
                 "employer_id" => $employers->random()->id
             ]);
+        }
+
+
+        // Create applications
+        foreach ($users as $user) {
+            $jobs = Job::inRandomOrder()->take(rand(0, 4))->get();
+
+            foreach ($jobs as $job) {
+                JobApplication::factory()->create([
+                    "user_id" => $user->id,
+                    "job_id" => $job->id,
+                ]);
+            }
         }
     }
 }
