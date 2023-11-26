@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -63,5 +64,15 @@ class Job extends Model
         })->when($filters['category'] ?? null, function ($query, $category) {
             $query->where("category", $category);
         });
+    }
+
+    public function hasUserApplied(Authenticatable|User|int $user): bool
+    {
+        $id = $user->id ?? $user; // can pass user as object or just the ID directly
+        return $this->where('id', $this->id)->whereHas(
+            'jobApplications',
+            fn ($query) =>
+            $query->where("user_id", '=', $id)
+        )->exists();
     }
 }
