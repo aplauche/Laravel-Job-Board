@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\JobApplicationController;
 use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,11 @@ Route::resource('auth', AuthController::class)->only(['create', 'store']);
 // delete protects agains CSRF by preventing links that hijack functionality of logout - instead we use form w csrf token
 Route::delete('logout', fn () => to_route('auth.destroy'))->name('logout');
 Route::delete('auth', [AuthController::class, 'destroy'])->name('auth.destroy');
+
+
+// Job Applications
+// calling group means middlware will apply to all routes within the callback
+Route::middleware('auth')->group(function () {
+  Route::resource('job.application', JobApplicationController::class)
+    ->only(['create', 'store']);
+});
