@@ -6,12 +6,12 @@
       @csrf
 
       <div class="mb-8">
-        <label class="mb-2 block text-sm font-medium text-slate-900" for="email">Email</label>
+        <x-label :required="true" for="email">Email</x-label>
         <x-text-input placeholder="example@email.com" name="email" />
       </div>
 
       <div class="mb-8">
-        <label class="mb-2 block text-sm font-medium text-slate-900" for="password">Password</label>
+        <x-label :required="true" for="password">Password</x-label>
         <x-text-input type="password" placeholder="password123... NOT" name="password" />
       </div>
 
