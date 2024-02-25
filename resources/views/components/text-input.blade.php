@@ -1,6 +1,6 @@
 <div class="relative">
 
-    @if ('text-area' !== $type)    
+    @if ('textarea' !== $type)    
         @if ($parentForm)
         <button 
             type="button" 

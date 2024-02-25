@@ -19,7 +19,7 @@ class MyJobController extends Controller
      */
     public function create()
     {
-        //
+        return view('my_job.create');
     }
 
     /**
@@ -27,7 +27,18 @@ class MyJobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            "title" => 'required|string|max:255',
+            "location" => 'required|string|max:255',
+            "salary" => 'required|numeric|min:5000',
+            "description" => 'required|string',
+            "experience" => 'required|in:' . implode(',', \App\Models\Job::$experience),
+            "category" => 'required|in:' . implode(',', \App\Models\Job::$category)
+        ]);
+
+        auth()->user()->employer->jobs()->create($validatedData);
+
+        return redirect()->route('my-jobs.index')->with('success', "Job created!");
     }
 
     /**
