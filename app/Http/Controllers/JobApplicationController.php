@@ -23,12 +23,22 @@ class JobApplicationController extends Controller
      */
     public function store(Job $job, Request $request)
     {
+
+        $this->authorize('apply', $job);
+
+        $validatedData = $request->validate([
+            'expected_salary' => 'required|min:1|max:10000000',
+            'cv' => 'required|file|mimes:pdf|max:2048'
+        ]);
+
+        $file = $request->file('cv');
+        // store in 'cvs' directory inside the 'private' disk eg. store({directory}, {disk})
+        $path = $file->store('cvs', 'private');
+
         $job->jobApplications()->create([
             "user_id" => $request->user()->id,
-            // unpack everything you validate into properties (validate returns array of validated fields)
-            ...$request->validate([
-                'expected_salary' => 'required|min:1|max:10000000'
-            ])
+            "expected_salary" => $validatedData['expected_salary'],
+            "cv_path" => $path
         ]);
 
         return redirect()->route('jobs.show', $job)->with('success', 'Your application has been submitted!');
