@@ -28,9 +28,12 @@
           </div>
       @endforelse
 
-      <div class="flex space-x-2 mt-2">
-        <x-button-link href="{{route('my-jobs.edit', $job)}}">Edit</x-button-link>
-      </div>
+      @can('update', $job)
+        <div class="flex space-x-2 mt-2">
+          <x-button-link href="{{route('my-jobs.edit', $job)}}">Edit</x-button-link>
+        </div>
+      @endcan
+
    </div>
   </x-job-card>
       
