@@ -34,6 +34,14 @@
         </div>
       @endcan
 
+      <div class="flex space-x-2 mt-2">
+        <form action="{{route('my-jobs.destroy', $job)}}" method="POST">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="button">Delete Job</button>
+        </form>
+      </div>
+
    </div>
   </x-job-card>
       

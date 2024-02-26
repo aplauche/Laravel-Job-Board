@@ -67,6 +67,8 @@ class MyJobController extends Controller
      */
     public function destroy(Job $myJob)
     {
-        $this->authorize('delete', $myJob);
+        //$this->authorize('delete', $myJob);
+        $myJob->delete();
+        return redirect()->route('my-jobs.index')->with('success', 'Job has been deleted!');
     }
 }

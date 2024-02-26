@@ -18,6 +18,7 @@ return new class extends Migration
             // constrained means you NEED a user and job on job application
             $table->foreignIdFor(User::class)->constrained();
             $table->foreignIdFor(Job::class)->constrained();
+            //->onDelete('cascade') would allow you to delete jobs and have all job apps deleted as well
             $table->unsignedInteger('expected_salary');
             $table->timestamps();
         });
