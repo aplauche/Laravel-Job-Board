@@ -27,6 +27,10 @@
             No applications yet...
           </div>
       @endforelse
+
+      <div class="flex space-x-2 mt-2">
+        <x-button-link href="{{route('my-jobs.edit', $job)}}">Edit</x-button-link>
+      </div>
    </div>
   </x-job-card>
       

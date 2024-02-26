@@ -47,5 +47,5 @@ Route::middleware('auth')->group(function () {
 
 // custom middleware for checking if user has created an employer associated with thier account
 Route::middleware('employer')->group(function () {
-  Route::resource('my-jobs', MyJobController::class)->only(['index', 'create', 'store']);
+  Route::resource('my-jobs', MyJobController::class)->only(['index', 'create', 'store', 'edit', 'update']);
 });
