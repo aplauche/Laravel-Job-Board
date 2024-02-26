@@ -16,7 +16,8 @@ class MyJobApplicationController extends Controller
         return view('my_job_application.index', [
             "applications" => auth()->user()->jobApplications()->with([
                 'job.employer',
-                'job' => fn ($query) => $query->withCount('jobApplications')->withAvg('jobApplications', 'expected_salary')
+                'job' => fn ($query) => $query->withCount('jobApplications')->withAvg('jobApplications', 'expected_salary')->withTrashed()
+                // we added withTrashed to be able to load job data for applications for jobs that have since been deleted
             ])->latest()->get()
         ]);
     }
